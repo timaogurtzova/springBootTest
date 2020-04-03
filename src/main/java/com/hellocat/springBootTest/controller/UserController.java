@@ -13,7 +13,7 @@ public class UserController {
     @GetMapping
     public String userPage(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
-        return "thymeleaf/userpage";
+        return "user/userpage";
     }
 
 }

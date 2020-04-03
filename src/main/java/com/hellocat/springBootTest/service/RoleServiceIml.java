@@ -4,7 +4,6 @@ import com.hellocat.springBootTest.domen.Role;
 import com.hellocat.springBootTest.domen.RoleType;
 import com.hellocat.springBootTest.domen.User;
 import com.hellocat.springBootTest.repository.RoleRepository;
-import com.hellocat.springBootTest.repository.UserRepository;
 import com.hellocat.springBootTest.util.PostProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

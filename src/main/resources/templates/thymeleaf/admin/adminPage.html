@@ -5,44 +5,39 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <table class="table table-striped">
-        <thead>
+    <table border="2" cellpadding="5">
         <tr>
             <th>ID</th>
             <th>Login</th>
             <th>Password</th>
+            <th>Age</th>
+            <th>City</th>
             <th>Role</th>
-            <th>Update</th>
-            <th>Delete</th>
+            <th> </th>
+            <th> </th>
         </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${users}" items="${requestScope.users}" var="user" varStatus="vs">
-            <td th:text="${user.id}">id</td>
-            <td th:text="${user.name}">login</td>
-            <td th:text="${user.password}">password</td>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"> </td>
+            <td th:text="${user.name}"> </td>
+            <td th:text="${user.password}"> </td>
+            <td th:text="${user.age}"> </td>
+            <td th:text="${user.city}"> </td>
             <td th:text="${#strings.replace(
                     #strings.replace(user.roles, '[',''),
                     ']','')}">
-                role
             </td>
-            <td>
-                <form method="get" action="#" th:action="@{/admin/update}">
-                    <input type="submit" value="Update"/>
-                    <input type="hidden" th:name="id" th:value="${user.id}"/>
-                </form>
-            </td>
-            <td>
-                <form method="POST" action="#" th:action="@{/deleteuser}">
-                    <input type="submit" value="Удалить"/>
-                    <input type="hidden" th:name="id" th:value="${user.id}"/>
-                </form>
-            </td>
-
+            <td><a th:href="@{/admin/update/{id}(id=${user.id})}">Update</a></td>
+            <td><a th:href="@{/admin/delete/{id}(id=${user.id})}">Delete</a></td>
         </tr>
-        </tbody>
     </table>
-    <h2><a href="#" th:href="@{/adminuseradd}">Add user</a></h2>
-
+    <h2>
+        <form th:action="@{/admin/add}" th:object="${userNew}" method="post">
+            <input type="text" th:field="*{name}" Name />
+            <input type="text" th:field="*{password}" Password />
+            <input type="text" th:field="*{city}" City />
+            <input type="number" th:field="*{age}" Age/>
+            <input type="submit" value="signUp">
+        </form>
+    </h2>
 </body>
 </html>

@@ -6,7 +6,7 @@
 </head>
 <body>
     <h2>Update</h2>
-    <form method="POST" th:action="@{/admin/update}" th:value="${user}">
+    <form method="POST" th:action="@{/admin/update}" th:object="${user}">
 
         <button type="submit"> Update</button>
     </form>
