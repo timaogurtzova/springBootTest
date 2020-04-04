@@ -55,6 +55,7 @@ public class AuthController {
 
        }
 
+       model.addAttribute("error", "Неверное имя пользователя или пароль");
         return "signIn";
     }
 

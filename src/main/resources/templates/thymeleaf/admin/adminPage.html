@@ -37,7 +37,7 @@
             <td th:text="City"></td> <input type="text" th:field="*{city}"  />
             <td th:text="Age"></td> <input type="number" th:field="*{age}" />
             <td th:each="role : ${roles}">
-                <input type="checkbox" th:name="roleChoose" th:value="${role.id}">
+                <input type="checkbox" th:field="*{roles}" th:value="${role.id}">
                 <label th:text="${role.authority}" ></label>
             </td>
             <input type="submit" value="addUser">

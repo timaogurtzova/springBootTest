@@ -47,11 +47,19 @@ public class AdminController {
 
     @PostMapping("update/{id}")
     public String updateUser (@PathVariable("id") long id, User user) {
-        userRepository.save(user);
-        return "redirect:";
+        User userBD = userRepository.findById(id).get();
+        if (userBD != null) {
+            userBD.setName(user.getName());
+            userBD.setPassword(user.getPassword());
+            userBD.setCity(user.getCity());
+            userBD.setAge(user.getAge());
+            userBD.setRoles(user.getRoles());
+            userRepository.flush();
+        }
+        return "redirect:/admin";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/delete/{id}")
     public String deleteUser (@PathVariable(value = "id") String id) {
         userRepository.deleteById(Long.parseLong(id));
         return "redirect:";
