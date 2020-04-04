@@ -5,10 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <table border="2" cellpadding="5">
+    <table border="2" cellpadding="10">
         <tr>
             <th>ID</th>
-            <th>Login</th>
+            <th>Name</th>
             <th>Password</th>
             <th>Age</th>
             <th>City</th>
@@ -26,17 +26,21 @@
                     #strings.replace(user.roles, '[',''),
                     ']','')}">
             </td>
-            <td><a th:href="@{/admin/update/{id}(id=${user.id})}">Update</a></td>
-            <td><a th:href="@{/admin/delete/{id}(id=${user.id})}">Delete</a></td>
+            <td><a th:href="@{/admin/update/{id}(id=${user.id})}">update</a></td>
+            <td><a th:href="@{/admin/delete/{id}(id=${user.id})}">delete</a></td>
         </tr>
     </table>
     <h2>
         <form th:action="@{/admin/add}" th:object="${userNew}" method="post">
-            <input type="text" th:field="*{name}" Name />
-            <input type="text" th:field="*{password}" Password />
-            <input type="text" th:field="*{city}" City />
-            <input type="number" th:field="*{age}" Age/>
-            <input type="submit" value="signUp">
+            <td th:text="Name" ></td><input type="text" th:field="*{name}" >
+            <td th:text="Password" ></td><input type="text" th:field="*{password}" /></tr>
+            <td th:text="City"></td> <input type="text" th:field="*{city}"  />
+            <td th:text="Age"></td> <input type="number" th:field="*{age}" />
+            <td th:each="role : ${roles}">
+                <input type="checkbox" th:name="roleChoose" th:value="${role.id}">
+                <label th:text="${role.authority}" ></label>
+            </td>
+            <input type="submit" value="addUser">
         </form>
     </h2>
 </body>

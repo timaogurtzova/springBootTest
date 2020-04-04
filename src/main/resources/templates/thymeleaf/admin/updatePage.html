@@ -7,7 +7,14 @@
 <body>
     <h2>Update</h2>
     <form method="POST" th:action="@{/admin/update}" th:object="${user}">
-
+            <input type="text" th:field="*{name}" Name />
+            <input type="text" th:field="*{password}" Password />
+            <input type="text" th:field="*{city}" City />
+            <input type="number" th:field="*{age}" Age/>
+            <td th:each="role : ${roles}">
+                <input type="checkbox" th:name="roleChoose" th:value="${role.id}"  th:checked="${user.getRoles().contains(role)} ?'checked'">
+                <label th:text="${role.authority}" ></label>
+            </td>
         <button type="submit"> Update</button>
     </form>
 </body>
