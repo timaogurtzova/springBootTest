@@ -2,8 +2,8 @@ package com.hellocat.springBootTest.controller;
 
 import com.hellocat.springBootTest.domen.Role;
 import com.hellocat.springBootTest.domen.User;
-import com.hellocat.springBootTest.repository.RoleRepository;
-import com.hellocat.springBootTest.repository.UserRepository;
+import com.hellocat.springBootTest.service.RoleService;
+import com.hellocat.springBootTest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,15 +16,15 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private RoleService roleService;
 
     @GetMapping
     public String showAdminPage(Model model) {
-        List<User> users = userRepository.findAll();
-        List <Role> roles = roleRepository.findAll();
+        List<User> users = userService.findAllUsers();
+        List <Role> roles = roleService.findAllRoles();
         model.addAttribute("users", users)
                 .addAttribute("roles", roles)
                 .addAttribute("userNew", new User());
@@ -35,9 +35,9 @@ public class AdminController {
     public String showUpdatePage(@PathVariable String id, Model model) {
         try {
             Long idLong = Long.parseLong(id);
-            User user = userRepository.getOne(idLong);
+            User user = userService.findUserById(idLong);
             model.addAttribute("user", user)
-                        .addAttribute("roles", roleRepository.findAll());
+                        .addAttribute("roles", roleService.findAllRoles());
             return "admin/updatePage";
         }catch (NumberFormatException e){
             //
@@ -47,27 +47,23 @@ public class AdminController {
 
     @PostMapping("update/{id}")
     public String updateUser (@PathVariable("id") long id, User user) {
-        User userBD = userRepository.findById(id).get();
-        if (userBD != null) {
-            userBD.setName(user.getName());
-            userBD.setPassword(user.getPassword());
-            userBD.setCity(user.getCity());
-            userBD.setAge(user.getAge());
-            userBD.setRoles(user.getRoles());
-            userRepository.flush();
-        }
+        userService.updateUser(id, user);
         return "redirect:/admin";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteUser (@PathVariable(value = "id") String id) {
-        userRepository.deleteById(Long.parseLong(id));
-        return "redirect:";
+        userService.deleteUser(Long.parseLong(id));
+        return "redirect:/admin";
     }
 
     @PostMapping("/add")
     public String addUser (User user) {
-        userRepository.save(user);
+        try {
+            userService.saveUser(user);
+        } catch (Exception e) {
+
+        }
         return "redirect:";
     }
 }

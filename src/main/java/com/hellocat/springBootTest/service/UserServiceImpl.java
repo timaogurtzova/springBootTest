@@ -7,12 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -31,7 +33,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByName(String name) {
-        return userRepository.getUserByName(name).get();
+        User user = null;
+        try {
+            user = userRepository.getUserByName(name).get();
+        }catch (NoSuchElementException e){
+
+        }
+        return user;
     }
 
     @Override
@@ -45,7 +53,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(User user) {
-        userRepository.saveAndFlush(user);
+    public void updateUser(Long id, User user) {
+        User userBD = userRepository.findById(id).get();
+        if (userBD != null) {
+            user.setPassword(user.getPassword());
+            userBD.setName(user.getName());
+            userBD.setCity(user.getCity());
+            userBD.setAge(user.getAge());
+            userBD.setRoles(user.getRoles());
+            userRepository.flush();
+        }
     }
 }

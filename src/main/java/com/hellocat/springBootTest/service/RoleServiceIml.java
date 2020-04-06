@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -24,7 +23,7 @@ public class RoleServiceIml implements RoleService {
     private RoleRepository roleRepository;
 
     @PostProxy
-    public void dbRequest(){
+    public void dbRequest() {
         Role adminRole = new Role(RoleType.ROLE_ADMIN);
         Role userRole = new Role(RoleType.ROLE_USER);
         roleRepository.save(adminRole);
@@ -32,7 +31,7 @@ public class RoleServiceIml implements RoleService {
         Set<Role> roles = new HashSet<>();
         roles.add(userRole);
         roles.add(adminRole);
-        User user = new User("user", 10, "1", "Msk", roles);
+        User user = new User("admin", 100, "1", "Msk", roles);
         userService.saveUser(user);
     }
 
@@ -42,12 +41,12 @@ public class RoleServiceIml implements RoleService {
     }
 
     @Override
-    public List<Role> getAllRoles() {
+    public List<Role> findAllRoles() {
         return roleRepository.findAll();
     }
 
     @Override
-    public Optional<Role> getRoleWithName(String roleTypeName) {
-        return roleRepository.getRoleByRoleType(roleTypeName);
+    public Role findRoleWithName(String roleTypeName) {
+        return roleRepository.getRoleByRoleType(roleTypeName).get();
     }
 }

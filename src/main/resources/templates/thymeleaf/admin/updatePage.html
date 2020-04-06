@@ -12,7 +12,7 @@
             <input type="text" th:field="*{city}" City />
             <input type="number" th:field="*{age}" Age/>
             <td th:each="role : ${roles}">
-                <input type="checkbox" th:name="roleChoose" th:value="${role.id}"  th:checked="${user.getRoles().contains(role)} ?'checked'">
+                <input type="checkbox" th:field ="*{roles}" th:value="${role.id}"  th:checked="${user.getRoles().contains(role)} ?'checked'">
                 <label th:text="${role.authority}" ></label>
             </td>
         <button type="submit"> Update</button>

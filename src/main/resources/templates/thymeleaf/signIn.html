@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>signin</title>
+    <title>Sign in</title>
 </head>
 <body>
-    <h1>signin page</h1>
-    <form th:action="@{/login}" method="post">
-        <label>Name</label><input type="text" th:name="username"><p>
-        <label>Password</label><input type="password" th:name="userpassword"><p>
+<h1>Hello, sign in!</h1>
+<form th:action="@{/login/process}" method="post">
+    <p><label>Name</label><input type="text" th:name="username"></p>
+    <p><label>Password</label><input type="password" th:name="userpassword"></p>
         <input type="submit" value="signin">
-    </form>
+</form>
 <td th:if="${error}">
     <p th:utext="${error}">
     <form th:action="@{/registration}" method="get">

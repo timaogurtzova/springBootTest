@@ -1,14 +1,14 @@
 package com.hellocat.springBootTest.domen;
 
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
 @Table(name = "users")
-public class User { // implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -87,15 +87,15 @@ public class User { // implements UserDetails {
         this.age = age;
     }
 
-  /*  @Override
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
-    } */
+    }
 
     public String getPassword() {
         return password;
     }
-/*
+
     @Override
     public String getUsername() {
         return name;
@@ -119,7 +119,7 @@ public class User { // implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }*/
+    }
 
     public void setPassword(String password) {
         this.password = password;

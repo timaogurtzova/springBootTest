@@ -21,43 +21,25 @@ public class AuthController {
 
     @PostMapping("/registration")
     public String userRegistration(@ModelAttribute("userForm") User user,
-                                      Model model) {
+                                   Model model) {
         try {
             userService.saveUser(user);
-            model.addAttribute("name", user.getName());
+            model.addAttribute("user", user);
+            return "redirect:/user";
         } catch (Exception e) {
-            model.addAttribute("error", "Registration failed");
-            return "signUp";
+
         }
-        return "user/userpage";
+        model.addAttribute("error", "Registration failed");
+        return "signUp";
     }
 
     @GetMapping("/login")
     public String getLoginPage(@RequestParam(name = "error", required = false) Boolean error,
-                        Model model) {
+                               Model model) {
         if (Boolean.TRUE.equals(error)) {
-            model.addAttribute("error", "true");
+            model.addAttribute("error", "invalid username or password");
         }
         return "signIn";
     }
-
-    @PostMapping ("/login")
-    public String userAuthentication(@RequestParam(name = "username") String name,
-                                     @RequestParam(name = "userpassword") String password,
-                                     Model model) {
-       try {
-           User user = userService.findUserByName(name);
-           if (user.getPassword().equals(password)) {
-               model.addAttribute("name", user.getName());
-               return "user/userpage";
-           }
-       }catch (Exception e) {
-
-       }
-
-       model.addAttribute("error", "Неверное имя пользователя или пароль");
-        return "signIn";
-    }
-
 
 }

@@ -3,12 +3,11 @@ package com.hellocat.springBootTest.service;
 import com.hellocat.springBootTest.domen.Role;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface RoleService {
 
-    List<Role> getAllRoles();
+    List<Role> findAllRoles();
 
-    Optional<Role> getRoleWithName(String roleTypeName);
+    Role findRoleWithName(String roleTypeName);
 
 }

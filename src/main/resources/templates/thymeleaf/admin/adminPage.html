@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+<tr><a th:href="@{/user}">Go User Page </a></tr>
     <table border="2" cellpadding="10">
         <tr>
             <th>ID</th>
@@ -33,7 +34,7 @@
     <h2>
         <form th:action="@{/admin/add}" th:object="${userNew}" method="post">
             <td th:text="Name" ></td><input type="text" th:field="*{name}" >
-            <td th:text="Password" ></td><input type="text" th:field="*{password}" /></tr>
+            <td th:text="Password" ></td><input type="text" th:field="*{password}" />
             <td th:text="City"></td> <input type="text" th:field="*{city}"  />
             <td th:text="Age"></td> <input type="number" th:field="*{age}" />
             <td th:each="role : ${roles}">

@@ -1,6 +1,6 @@
 package com.hellocat.springBootTest.domen;
 
-//import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-public class Role{ // implements GrantedAuthority {
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class Role{ // implements GrantedAuthority {
         return id;
     }
 
-   // @Override
+    @Override
     public String getAuthority() {
         return roleType.toString();
     }
