@@ -25,9 +25,9 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
         response.setStatus(HttpServletResponse.SC_OK);
 
-        if (user.getRoles().contains(new Role(RoleType.ROLE_ADMIN))){
+        if (user.getRoles().contains(new Role(RoleType.ROLE_ADMIN))) {
             response.sendRedirect("/admin");
-        }else if(user.getRoles().contains(new Role(RoleType.ROLE_USER))){
+        } else if (user.getRoles().contains(new Role(RoleType.ROLE_USER))) {
             response.sendRedirect("/user");
         }
     }

@@ -24,7 +24,7 @@ public class AdminController {
     @GetMapping
     public String showAdminPage(Model model) {
         List<User> users = userService.findAllUsers();
-        List <Role> roles = roleService.findAllRoles();
+        List<Role> roles = roleService.findAllRoles();
         model.addAttribute("users", users)
                 .addAttribute("roles", roles)
                 .addAttribute("userNew", new User());
@@ -37,28 +37,28 @@ public class AdminController {
             Long idLong = Long.parseLong(id);
             User user = userService.findUserById(idLong);
             model.addAttribute("user", user)
-                        .addAttribute("roles", roleService.findAllRoles());
+                    .addAttribute("roles", roleService.findAllRoles());
             return "admin/updatePage";
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             //
         }
         return "redirect:";
     }
 
     @PostMapping("/update")
-    public String updateUser (User user) {
+    public String updateUser(User user) {
         userService.updateUser(user);
         return "redirect:/admin";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteUser (@PathVariable(value = "id") String id) {
+    public String deleteUser(@PathVariable(value = "id") String id) {
         userService.deleteUser(Long.parseLong(id));
         return "redirect:/admin";
     }
 
     @PostMapping("/add")
-    public String addUser (User user) {
+    public String addUser(User user) {
         try {
             userService.saveUser(user);
         } catch (Exception e) {

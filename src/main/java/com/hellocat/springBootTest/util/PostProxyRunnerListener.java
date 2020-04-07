@@ -20,7 +20,7 @@ public class PostProxyRunnerListener {
     @EventListener
     public void onApplicationEvent(ContextRefreshedEvent event) {
         ApplicationContext applicationContext = event.getApplicationContext();
-        String [] namesBeanDefinition = applicationContext.getBeanDefinitionNames();
+        String[] namesBeanDefinition = applicationContext.getBeanDefinitionNames();
         for (String name : namesBeanDefinition) {
             BeanDefinition beanDefinition = beanFactory.getBeanDefinition(name);
             String originalClassName = beanDefinition.getBeanClassName();
@@ -31,15 +31,15 @@ public class PostProxyRunnerListener {
             }
             try {
                 Class<?> originalClass = Class.forName(originalClassName);
-                Method [] methods = originalClass.getMethods();
-                for (Method method: methods){
+                Method[] methods = originalClass.getMethods();
+                for (Method method : methods) {
                     if (method.isAnnotationPresent(PostProxy.class)) { //сейчас нужно вытащить метод из текущего класса (это мб proxy)
                         Object bean = applicationContext.getBean(name);
                         Method invokeNow = bean.getClass().getMethod(method.getName(), method.getParameterTypes());
                         invokeNow.invoke(bean);
                     }
                 }
-            }catch (ClassNotFoundException | NoSuchMethodException e){
+            } catch (ClassNotFoundException | NoSuchMethodException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
