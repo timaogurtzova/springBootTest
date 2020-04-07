@@ -6,11 +6,12 @@
 </head>
 <body>
     <h2>Update</h2>
-    <form method="POST" th:action="@{/admin/update/{id}(id=${user.id})}" th:object="${user}">
-            <input type="text" th:field="*{name}" Name />
-            <input type="text" th:field="*{password}" Password />
-            <input type="text" th:field="*{city}" City />
-            <input type="number" th:field="*{age}" Age/>
+    <form method="POST" th:action="@{/admin/update}" th:object="${user}">
+        <td th:text="Id"></td><input type="text" readonly th:field="*{id}" />
+        <td th:text="Name" ></td><input type="text" th:field="*{name}"/>
+        <td th:text="Password" ></td><input type="text" th:field="*{password}"/>
+        <td th:text="City"></td><input type="text" th:field="*{city}"/>
+        <td th:text="Age" ></td><input type="number" th:field="*{age}"/>
             <td th:each="role : ${roles}">
                 <input type="checkbox" th:field ="*{roles}" th:value="${role.id}"  th:checked="${user.getRoles().contains(role)} ?'checked'">
                 <label th:text="${role.authority}" ></label>

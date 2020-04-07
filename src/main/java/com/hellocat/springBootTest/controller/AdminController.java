@@ -45,9 +45,9 @@ public class AdminController {
         return "redirect:";
     }
 
-    @PostMapping("update/{id}")
-    public String updateUser (@PathVariable("id") long id, User user) {
-        userService.updateUser(id, user);
+    @PostMapping("/update")
+    public String updateUser (User user) {
+        userService.updateUser(user);
         return "redirect:/admin";
     }
 

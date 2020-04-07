@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -48,15 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(Long id, User user) {
-        User userBD = userRepository.findById(id).get();
-        if (userBD != null) {
-            user.setPassword(user.getPassword());
-            userBD.setName(user.getName());
-            userBD.setCity(user.getCity());
-            userBD.setAge(user.getAge());
-            userBD.setRoles(user.getRoles());
-            userRepository.flush();
-        }
+    public void updateUser(User user) {
+       userRepository.save(user);
     }
 }
