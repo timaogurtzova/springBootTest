@@ -47,6 +47,6 @@ public class RoleServiceIml implements RoleService {
 
     @Override
     public Role findRoleWithName(String roleTypeName) {
-        return roleRepository.getRoleByRoleType(roleTypeName).get();
+        return roleRepository.getRoleByRoleType(roleTypeName);
     }
 }
