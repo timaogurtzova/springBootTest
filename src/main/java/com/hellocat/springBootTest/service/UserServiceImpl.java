@@ -33,12 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByName(String name) {
-        User user = null;
-        try {
-            user = userRepository.getUserByName(name).get();
-        }catch (NoSuchElementException e){
-
-        }
+        User user = userRepository.getUserByName(name);
         return user;
     }
 
