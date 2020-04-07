@@ -42,9 +42,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
-        String passwordEncod = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(passwordEncod);
-        userRepository.saveAndFlush(user);
+        User userInDB = userRepository.getUserByName(user.getName());
+        if (userInDB == null) {
+            String passwordEncod = bCryptPasswordEncoder.encode(user.getPassword());
+            user.setPassword(passwordEncod);
+            userRepository.save(user);
+        }
     }
 
     @Override
