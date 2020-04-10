@@ -7,15 +7,13 @@
 <body>
 <h1>Create your account</h1>
 <form th:action="@{/registration}" th:object="${userForm}" method="post">
-    <p>Name: <input type="text" th:field="*{name}"/></p>
-    <p>Password: <input type="text" th:field="*{password}"/></p>
-    <p>City: <input type="text" th:field="*{city}"/></p>
-    <p>Age: <input type="number" th:field="*{age}"/></p>
+    <label> Name <input type="text" th:field="*{name}"/></label>
+    <label>Password: <input type="text" th:field="*{password}"/></label>
+    <label>City: <input type="text" th:field="*{city}"/></label>
+    <label>Age: <input type="number" th:field="*{age}"/></label>
     <input type="submit" value="signUp">
 </form>
-
-<div th:if="${error}" th:utext="${error}">
-</div>
-
+<p th:if="${error}" th:utext="${error}">
+</p>
 </body>
 </html>

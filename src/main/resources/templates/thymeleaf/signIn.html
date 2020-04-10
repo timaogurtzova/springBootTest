@@ -7,15 +7,14 @@
 <body>
 <h1>Hello, sign in!</h1>
 <form th:action="@{/login/process}" method="post">
-    <p><label>Name</label><input type="text" th:name="username"></p>
-    <p><label>Password</label><input type="password" th:name="userpassword"></p>
-        <input type="submit" value="signin">
+    <label> Name <input type="text" th:name="username"> </label>
+    <label>Password<input type="password" th:name="userpassword"></label>
+    <input type="submit" value="signin">
 </form>
-<td th:if="${error}">
-    <p th:utext="${error}">
-    <form th:action="@{/registration}" method="get">
-        <input type="submit" value="signup">
-    </form>
-</td>
+<p th:if="${error}" th:utext="${error}">
+<form th:action="@{/registration}" method="get">
+    <input type="submit" value="signup">
+</form>
+</p>
 </body>
 </html>
