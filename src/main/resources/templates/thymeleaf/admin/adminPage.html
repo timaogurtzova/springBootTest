@@ -2,47 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Admin page</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<tr><a th:href="@{/user}">Go User Page </a></tr>
-    <table border="2" cellpadding="10">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Password</th>
-            <th>Age</th>
-            <th>City</th>
-            <th>Role</th>
-            <th> </th>
-            <th> </th>
-        </tr>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.id}"> </td>
-            <td th:text="${user.name}"> </td>
-            <td th:text="${user.password}"> </td>
-            <td th:text="${user.age}"> </td>
-            <td th:text="${user.city}"> </td>
-            <td th:text="${#strings.replace(
+<a th:href="@{/user}">Go User Page </a>
+<table border="2" cellpadding="10" cols="8">
+    <caption>Users in database</caption>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Password</th>
+        <th>Age</th>
+        <th>City</th>
+        <th>Role</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.password}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:text="${user.city}"></td>
+        <td th:text="${#strings.replace(
                     #strings.replace(user.roles, '[',''),
                     ']','')}">
-            </td>
-            <td><a th:href="@{/admin/update/{id}(id=${user.id})}">update</a></td>
-            <td><a th:href="@{/admin/delete/{id}(id=${user.id})}">delete</a></td>
-        </tr>
-    </table>
-    <h2>
-        <form th:action="@{/admin/add}" th:object="${userNew}" method="post">
-            <td th:text="Name" ></td><input type="text" th:field="*{name}" >
-            <td th:text="Password" ></td><input type="text" th:field="*{password}" />
-            <td th:text="City"></td> <input type="text" th:field="*{city}"  />
-            <td th:text="Age"></td> <input type="number" th:field="*{age}" />
-            <td th:each="role : ${roles}">
-                <input type="checkbox" th:field="*{roles}" th:value="${role.id}">
-                <label th:text="${role.authority}" ></label>
-            </td>
-            <input type="submit" value="addUser">
-        </form>
-    </h2>
+        </td>
+        <td><a th:href="@{/admin/update/{id}(id=${user.id})}">update</a></td>
+        <td><a th:href="@{/admin/delete/{id}(id=${user.id})}">delete</a></td>
+    </tr>
+</table>
+<p>Add user now</p>
+<form th:action="@{/admin/add}" th:object="${userNew}" method="post">
+    <td th:text="Name"></td>
+    <input type="text" th:field="*{name}">
+    <td th:text="Password"></td>
+    <input type="text" th:field="*{password}"/>
+    <td th:text="City"></td>
+    <input type="text" th:field="*{city}"/>
+    <td th:text="Age"></td>
+    <input type="number" th:field="*{age}"/>
+    <td th:each="role : ${roles}">
+        <input type="checkbox" th:field="*{roles}" th:value="${role.id}">
+        <label th:text="${role.authority}"></label>
+    </td>
+    <input type="submit" value="addUser">
+</form>
 </body>
 </html>
